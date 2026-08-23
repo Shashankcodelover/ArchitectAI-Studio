@@ -143,7 +143,7 @@ function Message({ msg, mode }) {
         {isUser ? <User size={14}/> : <Bot size={14}/>}
       </div>
       <div className="msg-body">
-        <div className="msg-role">{isUser ? 'You' : 'Architect.ai'}</div>
+        <div className="msg-role">{isUser ? 'You' : 'ArchitectAI Studio'}</div>
         <div className="msg-content">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
         </div>
@@ -164,7 +164,7 @@ function WelcomeHero({ currentMode, onChipClick }) {
   return (
     <div className="welcome-hero">
       <div className="hero-icon"><Sparkles size={26} color="#6366f1"/></div>
-      <h1 className="hero-title">Architect.ai</h1>
+      <h1 className="hero-title">ArchitectAI Studio</h1>
       <p className="hero-sub">Autonomous system design powered by LangGraph + Gemini</p>
       <div className="hero-chips">
         {QUICK_PROMPTS.map(p => (
@@ -566,8 +566,8 @@ export default function App() {
         <div className="header-left">
           <div className="logo">
             <div className="logo-mark"><Zap size={16} color="white"/></div>
-            <span className="logo-name">Architect.ai</span>
-            <span className="logo-beta">BETA</span>
+            <span className="logo-name">ArchitectAI Studio</span>
+            <span className="logo-beta">PRO</span>
           </div>
           <ChevronRight size={12} color="#334155"/>
           <div className="mode-tabs">
@@ -708,7 +708,7 @@ export default function App() {
               <div className="message message-ai">
                 <div className="msg-avatar avatar-ai"><Bot size={14}/></div>
                 <div className="msg-body">
-                  <div className="msg-role">Architect.ai</div>
+                  <div className="msg-role">ArchitectAI Studio</div>
                   <div className="msg-content streaming-content">
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{streaming}</ReactMarkdown>
                   </div>

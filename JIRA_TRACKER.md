@@ -1,7 +1,7 @@
-# Jira Tracker: AI Architect (Visual Tool Editor)
+# 📋 JIRA TRACKER — ArchitectAI Studio (Visual Tool & System Architecture Engine)
 
 ## 📌 Project Aim & Modern World Relevance
-AI Architect is an agentic design editor. It allows developers to specify software architecture on a visual canvas (e.g. databases, route paths, handlers) and lets an AI agent container generate the actual code files. Real-time collaboration allows multiple developers to design diagrams simultaneously.
+ArchitectAI Studio is an agentic system design studio and visual tool editor. It allows developers to specify software architecture on a visual canvas (e.g. databases, route paths, handlers) and lets an AI agent container generate the actual code files. Real-time collaboration allows multiple developers to design diagrams simultaneously.
 
 ---
 
