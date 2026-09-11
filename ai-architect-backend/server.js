@@ -40,6 +40,16 @@ const { z } = require("zod");
 const { HumanMessage } = require("@langchain/core/messages");
 const { appGraph, initPostgresCheckpointer } = require("./orchestrator.js");
 const { terminateMockServer } = require("./mockServer.js");
+const {
+    CollaborativeWorkspaceState,
+    sandboxCompileAndRun,
+    compileGitDiffRevision,
+    validateWorkspaceDiagram,
+    exportSchemaJSON,
+    getWorkspaceTelemetry,
+} = require("./collaborative_state.js");
+
+const workspaceState = new CollaborativeWorkspaceState();
 
 // ─── 4. APP INITIALIZATION ────────────────────────────────────────────────────
 const app = express();
@@ -48,6 +58,8 @@ const app = express();
 app.use(cors({
     origin: [
         "http://localhost:5173",  // Vite dev server
+        "http://localhost:5174",
+        "http://localhost:5175",
         "http://localhost:3000",  // CRA / Next.js dev server
         "http://localhost:4173",  // Vite preview
     ],
@@ -749,6 +761,94 @@ app.get("/api/architect/visualize", (req, res) => {
         console.error("[API] Visualization error:", e);
         res.status(500).send("Error generating graph visualization.");
     }
+});
+
+// ─── 7B. REAL-TIME COLLABORATION & V21 ENDPOINTS ───────────────────────────
+/**
+ * GET /api/collaborative/telemetry — Workspace Status & Concurrency Metrics
+ */
+app.get("/api/collaborative/telemetry", (req, res) => {
+    res.json(getWorkspaceTelemetry(workspaceState));
+});
+
+/**
+ * POST /api/collaborative/lock — Acquire Exclusive Node Lock
+ */
+app.post("/api/collaborative/lock", (req, res) => {
+    const { nodeId, userId } = req.body;
+    if (!nodeId || !userId) {
+        return res.status(400).json({ error: "nodeId and userId are required." });
+    }
+    workspaceState.activeUsers.add(userId);
+    const result = workspaceState.acquireLock(nodeId, userId);
+    res.json(result);
+});
+
+/**
+ * POST /api/collaborative/unlock — Release Node Lock
+ */
+app.post("/api/collaborative/unlock", (req, res) => {
+    const { nodeId, userId } = req.body;
+    if (!nodeId || !userId) {
+        return res.status(400).json({ error: "nodeId and userId are required." });
+    }
+    const success = workspaceState.releaseLock(nodeId, userId);
+    res.json({ success, nodeId, unlockedBy: userId });
+});
+
+/**
+ * POST /api/collaborative/node — Update Architecture Node with Lock Check
+ */
+app.post("/api/collaborative/node", (req, res) => {
+    const { nodeId, nodeData, userId } = req.body;
+    if (!nodeId || !nodeData || !userId) {
+        return res.status(400).json({ error: "nodeId, nodeData, and userId are required." });
+    }
+    const result = workspaceState.updateNode(nodeId, nodeData, userId);
+    res.json(result);
+});
+
+/**
+ * POST /api/collaborative/validate-diagram — Diagram Topology Validation Engine
+ */
+app.post("/api/collaborative/validate-diagram", (req, res) => {
+    const nodes = req.body.nodes || workspaceState.nodes;
+    const validation = validateWorkspaceDiagram(nodes);
+    res.json(validation);
+});
+
+/**
+ * POST /api/collaborative/sandbox-run — Local Sandbox Code Compiler & Execution
+ */
+app.post("/api/collaborative/sandbox-run", (req, res) => {
+    const { nodeId, sourceCode, inputParameters } = req.body;
+    if (!sourceCode) {
+        return res.status(400).json({ error: "sourceCode is required." });
+    }
+    const execution = sandboxCompileAndRun(nodeId || "anonymous", sourceCode, inputParameters || {});
+    res.json(execution);
+});
+
+/**
+ * POST /api/collaborative/diff — Interactive Git Diff Revision Generator
+ */
+app.post("/api/collaborative/diff", (req, res) => {
+    const { originalCode, updatedCode } = req.body;
+    if (originalCode === undefined || updatedCode === undefined) {
+        return res.status(400).json({ error: "originalCode and updatedCode are required." });
+    }
+    const diff = compileGitDiffRevision(originalCode, updatedCode);
+    res.json(diff);
+});
+
+/**
+ * GET /api/collaborative/export-schema — Export Workspace Architecture Schema JSON
+ */
+app.get("/api/collaborative/export-schema", (req, res) => {
+    const workspaceName = req.query.workspaceName || "ArchitectAI-Master-Workspace";
+    const jsonStr = exportSchemaJSON(workspaceName, workspaceState.nodes);
+    res.setHeader("Content-Type", "application/json");
+    res.send(jsonStr);
 });
 
 // ─── 8. 404 HANDLER ───────────────────────────────────────────────────────────

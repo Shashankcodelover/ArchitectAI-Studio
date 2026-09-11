@@ -172,7 +172,7 @@ export function useWasmSimulator() {
         tableCounts:    verifiedCounts,
         rowsInserted:   totalVerified,
         queryTimeMs,
-        benchmarkQuery,
+        benchmarkQuery: benchQuery,
         queryResult:    queryResult?.[0] ?? null, // { columns: [], values: [] }
         queryError,
         totalColumns:   tables.reduce((acc, t) => acc + t.columns.length, 0),
