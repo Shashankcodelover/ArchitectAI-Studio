@@ -9,10 +9,20 @@
 ## 🚀 Key Features
 
 - **Interactive Node Canvas**: Visual drag-and-drop node graph tracking active agent execution state.
+- **Autonomous Topology Synthesizer & Resiliency Auditor**: Mathematically audits distributed topologies with Tarjan's SCC and Kahn's algorithm for synchronous circular deadlock prevention, Percolation theory for cascading blast radius bounds, Single Point of Failure (SPOF) detection, and SHA-256 cryptographic architecture passports.
 - **LangGraph State Engine**: Multi-agent orchestration powered by LangGraph, Express backend, and Gemini models.
 - **Live Mock Server**: Auto-generates functional REST API mocks for designed endpoints.
 - **In-Browser WASM Simulator**: Embedded SQL simulation engine for validating database schemas locally.
 - **Real-Time Collaboration**: Memory locks and state coordination for team system design.
+
+---
+
+## 📸 Showcase & Executive Command Center
+
+| High-Availability Resiliency HUD (DAG Verified) | Synchronous Deadlock Detection Radar |
+| :---: | :---: |
+| ![HA Topology](docs/showcase/architect_01_resilience_auditor.png) | ![Deadlock Detected](docs/showcase/architect_02_deadlock_detected.png) |
+
 
 ---
 

@@ -851,6 +851,44 @@ app.get("/api/collaborative/export-schema", (req, res) => {
     res.send(jsonStr);
 });
 
+// ─── RESILIENCY AUDITOR & TOPOLOGY SYNTHESIZER ──────────────────────────────
+const systemTopologyAuditor = require("./systemTopologyAuditor.js");
+
+/**
+ * GET /api/architect/resilience-presets — Retrieve pre-configured topologies for testing
+ */
+app.get("/api/architect/resilience-presets", (req, res) => {
+    res.json({
+        presets: systemTopologyAuditor.getPresets(),
+        defaultPreset: systemTopologyAuditor.getPresetById("e_commerce_checkout")
+    });
+});
+
+/**
+ * GET /api/architect/resilience-presets/:id — Retrieve specific preset details
+ */
+app.get("/api/architect/resilience-presets/:id", (req, res) => {
+    const preset = systemTopologyAuditor.getPresetById(req.params.id);
+    res.json(preset);
+});
+
+/**
+ * POST /api/architect/audit-topology — Mathematically audit microservice topology
+ */
+app.post("/api/architect/audit-topology", (req, res) => {
+    try {
+        const topology = req.body.topology || req.body;
+        if (!topology || !topology.nodes) {
+            return res.status(400).json({ error: "Invalid topology payload. 'nodes' array required." });
+        }
+        const auditResult = systemTopologyAuditor.auditTopology(topology);
+        res.json(auditResult);
+    } catch (err) {
+        console.error("[TopologyAuditor] Audit failed:", err);
+        res.status(500).json({ error: "Failed to audit topology", details: err.message });
+    }
+});
+
 // ─── 8. 404 HANDLER ───────────────────────────────────────────────────────────
 app.use((req, res) => {
     res.status(404).json({

@@ -29,6 +29,7 @@ import WasmSimResults from './components/WasmSimResults.jsx';
 import LiveEndpointManager from './components/LiveEndpointManager.jsx';
 import SecurityConsole from './components/SecurityConsole.jsx';
 import PerformanceDashboard from './components/PerformanceDashboard.jsx';
+import ResilienceAuditorHUD from './components/ResilienceAuditorHUD.jsx';
 import CapSlider from './components/CapSlider.jsx';
 import { useWasmSimulator } from './hooks/useWasmSimulator';
 import { DEMO_EVENTS, DEMO_PROMPT } from './demoData.js';
@@ -208,6 +209,7 @@ export default function App() {
   const [modeId,    setModeId]   = useState('blueprint');
   const [threadId]               = useState(() => genUUID());
   const [capValue,  setCapValue] = useState('balanced');
+  const [showResilienceHUD, setShowResilienceHUD] = useState(true);
 
   const textareaRef  = useRef(null);
   const chatEndRef   = useRef(null);
@@ -608,6 +610,13 @@ export default function App() {
             <AlertTriangle size={14}/> Chaos
           </button>
           <button
+            className={`header-btn ${showResilienceHUD ? 'active-hud-btn' : ''}`}
+            onClick={() => setShowResilienceHUD(prev => !prev)}
+            title="Toggle Distributed Resiliency & Topology Synthesizer"
+          >
+            <Shield size={14}/> Resiliency
+          </button>
+          <button
             className="header-btn"
             onClick={() => { setMessages([]); resetPanels(); setIsChaos(false); }}
             title="New session"
@@ -623,6 +632,11 @@ export default function App() {
         visitedNodes={agentState.visitedNodes}
         status={agentState.status}
       />
+
+      {/* ── DISTRIBUTED SYSTEM RESILIENCY AUDITOR HUD ──────────────────── */}
+      {showResilienceHUD && (
+        <ResilienceAuditorHUD />
+      )}
 
       <div className="cap-slider-wrapper">
         <CapSlider value={capValue} onChange={handleCapChange} disabled={isRunning} />
