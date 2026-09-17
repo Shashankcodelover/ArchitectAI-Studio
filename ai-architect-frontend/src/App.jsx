@@ -21,7 +21,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Send, Bot, User, PlusCircle, Zap, Copy, Download,
-         Layers, FileText, Shield, Package, ChevronRight, Sparkles, AlertTriangle } from 'lucide-react';
+         Layers, FileText, Shield, Package, ChevronRight, Sparkles, AlertTriangle, Network, Upload } from 'lucide-react';
 import GraphFlow from './components/GraphFlow.jsx';
 import FileTree  from './components/FileTree.jsx';
 import CodePanel from './components/CodePanel.jsx';
@@ -31,6 +31,8 @@ import SecurityConsole from './components/SecurityConsole.jsx';
 import PerformanceDashboard from './components/PerformanceDashboard.jsx';
 import ResilienceAuditorHUD from './components/ResilienceAuditorHUD.jsx';
 import CapSlider from './components/CapSlider.jsx';
+import BulkIngestionStudio from './components/BulkIngestionStudio.jsx';
+import TopologyMeshPage from './components/TopologyMeshPage.jsx';
 import { useWasmSimulator } from './hooks/useWasmSimulator';
 import { DEMO_EVENTS, DEMO_PROMPT } from './demoData.js';
 
@@ -210,6 +212,8 @@ export default function App() {
   const [threadId]               = useState(() => genUUID());
   const [capValue,  setCapValue] = useState('balanced');
   const [showResilienceHUD, setShowResilienceHUD] = useState(true);
+  const [showTopologyMesh, setShowTopologyMesh] = useState(false);
+  const [showBulkIngestion, setShowBulkIngestion] = useState(false);
 
   const textareaRef  = useRef(null);
   const chatEndRef   = useRef(null);
@@ -617,6 +621,20 @@ export default function App() {
             <Shield size={14}/> Resiliency
           </button>
           <button
+            className={`header-btn ${showTopologyMesh ? 'active-hud-btn' : ''}`}
+            onClick={() => setShowTopologyMesh(true)}
+            title="Open Architecture Topology Mesh & Corridors"
+          >
+            <Network size={14}/> Mesh
+          </button>
+          <button
+            className={`header-btn ${showBulkIngestion ? 'active-hud-btn' : ''}`}
+            onClick={() => setShowBulkIngestion(true)}
+            title="Open Enterprise Bulk Ingestion Studio"
+          >
+            <Upload size={14}/> Ingestion
+          </button>
+          <button
             className="header-btn"
             onClick={() => { setMessages([]); resetPanels(); setIsChaos(false); }}
             title="New session"
@@ -777,6 +795,19 @@ export default function App() {
           <span>MemorySaver Active</span>
         </div>
       </div>
+
+      {showTopologyMesh && (
+        <TopologyMeshPage
+          onClose={() => setShowTopologyMesh(false)}
+          onOpenIngestion={() => { setShowTopologyMesh(false); setShowBulkIngestion(true); }}
+        />
+      )}
+
+      {showBulkIngestion && (
+        <BulkIngestionStudio
+          onClose={() => setShowBulkIngestion(false)}
+        />
+      )}
 
     </div>
   );

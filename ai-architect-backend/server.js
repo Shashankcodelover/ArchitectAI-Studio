@@ -63,10 +63,11 @@ app.use(cors({
         "http://localhost:3000",  // CRA / Next.js dev server
         "http://localhost:4173",  // Vite preview
     ],
-    methods: ["GET", "POST", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json({ limit: "15mb" }));
+app.use(express.text({ limit: "15mb", type: ["text/plain", "text/csv", "application/csv"] }));
 
 // ── Structured Request Logger ─────────────────────────────────────────────────
 app.use((req, res, next) => {
@@ -888,6 +889,11 @@ app.post("/api/architect/audit-topology", (req, res) => {
         res.status(500).json({ error: "Failed to audit topology", details: err.message });
     }
 });
+
+// ─── 7D. ENTERPRISE TOPOLOGY CORRIDORS & BULK INGESTION ───────────────────
+const { topologyRouter } = require("./topologyRoutes.js");
+app.use("/api/architect", topologyRouter);
+app.use("/api/topology", topologyRouter);
 
 // ─── 8. 404 HANDLER ───────────────────────────────────────────────────────────
 app.use((req, res) => {
