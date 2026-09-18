@@ -1,5 +1,7 @@
 # 🏗️ ArchitectAI Studio — Autonomous System Designer & Enterprise Topology Mesh
 
+[🚀 Live Demo](https://architectai-studio.shashankj.tech)
+
 [![Automated Tests](https://img.shields.io/badge/Tests-15%2F15%20Passing-brightgreen?style=for-the-badge&logo=node.js)](ai-architect-backend/test/)
 [![Frontend Build](https://img.shields.io/badge/Frontend-React%2019%20%2B%20Vite%208-blue?style=for-the-badge&logo=react)](ai-architect-frontend/)
 [![Backend Architecture](https://img.shields.io/badge/Backend-Express%205%20%2B%20LangGraph-orange?style=for-the-badge&logo=express)](ai-architect-backend/)
