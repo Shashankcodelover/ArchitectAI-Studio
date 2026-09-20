@@ -70,3 +70,12 @@
   - 10 new enterprise tests: Node lifecycle, cascading corridor deletion, universal purge, telemetry metrics, CSV parsing, and corridor severing mechanics
   - 5 existing mathematical auditor tests: Presets, High-Availability checkout verification, circular deadlock detection, SPOF detection, and percolation blast radius bounds
 - **Production Build**: Clean Vite asset bundling (444 kB JS) and 706ms compile time.
+
+
+## User Flow Verification
+
+![User Flow](docs/architect_studio_active_canvas_verified.png)
+![User Flow](docs/architect_studio_code_complete_verified.png)
+![User Flow](docs/architect_studio_overview_verified.png)
+![User Flow](docs/arch_visualizer_verified.png)
+
