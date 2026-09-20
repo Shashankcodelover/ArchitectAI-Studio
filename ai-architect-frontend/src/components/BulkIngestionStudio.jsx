@@ -107,7 +107,7 @@ export default function BulkIngestionStudio({ onClose, onRefreshData }) {
         try {
           bodyData = JSON.stringify(JSON.parse(payload));
         } catch (e) {
-          throw new Error(`Invalid JSON format: ${e.message}`);
+          throw new Error(`Invalid JSON format: ${e.message}`, { cause: e });
         }
       }
 

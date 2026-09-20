@@ -70,7 +70,7 @@ function parseCodeBlocks(content) {
 // Extract API endpoints for the mock server manager
 function parseEndpoints(markdown) {
   const endpoints = [];
-  const re = /(?:-\s*)?(GET|POST|PUT|DELETE|PATCH)\s+([\/a-zA-Z0-9_\-\{\}]+)/gi;
+  const re = /(?:-\s*)?(GET|POST|PUT|DELETE|PATCH)\s+([/a-zA-Z0-9_{}-]+)/gi;
   let match;
   while ((match = re.exec(markdown)) !== null) {
       endpoints.push({
