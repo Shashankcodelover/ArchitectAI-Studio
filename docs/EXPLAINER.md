@@ -1,5 +1,8 @@
 # EXPLAINER: AI Architect (Visual Tool Editor with Agent)
 
+> [!NOTE]
+> This document records an initial conceptual architecture proposal. For the actual ground-truth implementation built in this repository, refer to the root [README.md](../README.md). The production codebase is implemented in Node.js/Express 5, LangGraph JS, and React 19.
+
 ## 1. Project Overview & "In and Out" (ELI15/20)
 **AI Architect** is an end-to-end agentic visual prototyping pipeline. It is designed to stop developers from "vibe coding"—which is writing code using random AI prompt adjustments without planning ahead, leading to buggy codebases that nobody understands.
 Instead of translating raw prompts directly into code, AI Architect forces a structured quality control process:
