@@ -43,7 +43,7 @@ function getFileIcon(file) {
 
 // TOOL CALL display chips
 const TOOL_META = {
-  fetch_api_structure:         { label: 'Research',      color: '#8b5cf6', icon: '🔍' },
+  fetch_api_structure:         { label: 'Research',      color: '#3b82f6', icon: '🔍' },
   generate_database_schema:    { label: 'Schema',        color: '#f59e0b', icon: '🗃' },
   write_technical_documentation:{ label: 'Docs',         color: '#10b981', icon: '📝' },
 };
