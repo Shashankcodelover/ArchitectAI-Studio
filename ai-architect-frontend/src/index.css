@@ -622,7 +622,7 @@ textarea {
 
 /* ── CENTER PANEL — Code Panel ─────────────────────────── */
 .panel-center {
-  background: #0a0c10;
+  background: #ffffff;
   border-right: 1px solid var(--border);
 }
 
@@ -738,7 +738,7 @@ textarea {
   font-family: var(--font-code);
   font-size: 12.5px;
   line-height: 1.7;
-  color: #cdd6f4;
+  color: var(--text-1);
   white-space: pre;
   overflow-x: auto;
 }
@@ -753,7 +753,7 @@ textarea {
 /* Terminal empty state */
 .code-empty-terminal {
   width: 280px;
-  background: #0d1117;
+  background: var(--bg-panel);
   border: 1px solid var(--border-hi);
   border-radius: var(--radius-lg);
   overflow: hidden;
