@@ -8,11 +8,11 @@
 
 /* ── TOKENS ────────────────────────────────────────────── */
 :root {
-  --bg-base: #090b10;
-  --bg-panel: #0d1017;
-  --bg-card: #111520;
-  --bg-hover: #161b27;
-  --bg-active: #1a2035;
+  --bg-base: #ffffff;
+  --bg-panel: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-hover: #f1f5f9;
+  --bg-active: #e2e8f0;
 
   --accent: #6366f1;
   --accent-dim: #6366f130;
@@ -22,11 +22,11 @@
   --violet: #3b82f6;
   --red: #ef4444;
 
-  --text-1: #f1f5f9;
-  --text-2: #94a3b8;
-  --text-3: #475569;
-  --border: #1a2035;
-  --border-hi: #2d3561;
+  --text-1: #0f172a;
+  --text-2: #475569;
+  --text-3: #64748b;
+  --border: #e2e8f0;
+  --border-hi: #cbd5e1;
 
   --font-ui: 'Inter', system-ui, sans-serif;
   --font-code: 'JetBrains Mono', 'Fira Code', monospace;
