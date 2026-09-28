@@ -178,8 +178,12 @@ function WelcomeHero({ currentMode, onChipClick }) {
   );
 }
 
+import LandingPage from './LandingPage.jsx';
+
 // ── MAIN APP ──────────────────────────────────────────────────────────────────
 export default function App() {
+  const [showLanding, setShowLanding] = useState(true);
+
   // Chat state (right panel)
   const [messages,   setMessages]   = useState([]);
   const [input,      setInput]      = useState('');
@@ -564,6 +568,10 @@ export default function App() {
   const isRunning = agentState.status === 'running';
 
   // ── RENDER ──────────────────────────────────────────────────────────────────
+  if (showLanding) {
+    return <LandingPage onDemo={() => setShowLanding(false)} />;
+  }
+
   return (
     <div className={`studio ${isChaos ? 'chaos-mode' : ''}`}>
 
